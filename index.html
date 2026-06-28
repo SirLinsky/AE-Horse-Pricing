@@ -160,7 +160,7 @@ button {
 </select>
 
 <label>XP</label>
-<input type="number" id="xp" min="0" max="10000" step="1" value="0">
+<input type="number" id="xp" min="0" max="10000" step="100" value="0">
 
 <label>RP Enabled?</label>
 <select id="rp" onchange="toggleRP()">
@@ -481,9 +481,17 @@ base * (parseFloat(papers.value)-1);
 // XP
 let xpVal = parseInt(xp.value) || 0;
 
+// limit auf 10000
 if (xpVal > 10000) {
   xpVal = 10000;
 }
+
+if (xpVal < 0) {
+  xpVal = 0;
+}
+
+// WICHTIG: Input zurücksetzen
+xp.value = xpVal;
 
 let xpFactor = xpVal === 10000 ? 0.3 : 0.2;
 let xpBonus = xpVal * xpFactor;
