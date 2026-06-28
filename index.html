@@ -424,12 +424,13 @@ let lastBreakdown = "";
 
 function calculate(){
 
-let base = breeds[breed.value.trim()];
+let breedName = breed.value.trim();
+let base = breeds[breedName];
 
 console.log("Base:", base);
-console.log("Breed:", breed.value);
-console.log("Pattern:", pattern.value);
-console.log("Pattern Bonus:", patterns[pattern.value] ?? 0);
+console.log("Breed:", breedName);
+console.log("Pattern:", patternSelect.value);
+console.log("Pattern Bonus:", patterns[patternSelect.value] ?? 0);
 console.log("Color Bonus:", colorMap[colorSelect.value] ?? 0);
 
 let appearanceAdd = 0;
