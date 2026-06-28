@@ -430,7 +430,7 @@ let total = base *
 parseFloat(bred.value) *
 parseFloat(sex.value) *
 (1 + patterns[pattern.value]) *
-(1 + Color[color.value]) *
+(1 + Color[Color.value]) *
 parseFloat(breedtype.value);
 
 let rpMult = 1;
@@ -454,13 +454,24 @@ let xpBonus = xpVal * xpFactor;
 
 total += xpBonus;
 
+let appearanceAdd = patternAdd + colorAdd;
+let trainingAdd = expAdd + compAdd;
+let conditionAdd = ageAdd + sexAdd + healthAdd + breedtypeAdd;
+let otherAdd = bredAdd + lineageAdd + papersAdd;
+
 // BREAKDOWN TEXT
 lastBreakdown =
 `BASE PRICE: $${base}
 
-Additions: ${rpMult.toFixed(2)}
+APPEARANCE: $${Math.round(appearanceAdd)}
 
-XP BONUS: $${xpBonus}
+TRAINING: $${Math.round(trainingAdd)}
+
+CONDITION: $${Math.round(conditionAdd)}
+
+XP BONUS: $${Math.round(xpBonus)}
+
+OTHER: $${Math.round(otherAdd)}
 
 FINAL PRICE: $${Math.round(total)}`;
 
