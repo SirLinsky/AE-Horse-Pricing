@@ -109,11 +109,11 @@ button {
 
 <label>Pattern</label>
 <select id="pattern">
-<option value="1">zebra</option>
+<option value="1">Zebra</option>
 <option value="1">Leopard</option>
 <option value="1">Blanket</option>
 <option value="1">Snowflake</option>
-<option value="1">Fewspotted</option>
+<option value="1">Few Spotted</option>
 <option value="1">Tovero</option>
 <option value="1">Tobiano</option>
 <option value="1">Overo</option>
@@ -426,6 +426,11 @@ function calculate(){
 
 let base = breeds[breed.value];
 
+let appearanceAdd = 0;
+let trainingAdd = 0;
+let conditionAdd = 0;
+let otherAdd = 0;
+
 let total = base *
 parseFloat(bred.value) *
 parseFloat(sex.value) *
@@ -447,6 +452,29 @@ parseFloat(papers.value);
 
 total *= rpMult;
 
+// APPEARANCE
+appearanceAdd =
+base * color[Color.value] +
+base * patterns[pattern.value];
+
+// TRAINING
+trainingAdd =
+base * (parseFloat(exp.value)-1) +
+base * (parseFloat(comp.value)-1);
+
+// CONDITION
+conditionAdd =
+base * (parseFloat(age.value)-1) +
+base * (parseFloat(sex.value)-1) +
+base * (parseFloat(health.value)-1) +
+base * (parseFloat(breedtype.value)-1);
+
+// OTHER
+otherAdd =
+base * (parseFloat(bred.value)-1) +
+base * (parseFloat(lineage.value)-1) +
+base * (parseFloat(papers.value)-1);
+  
 // XP
 let xpVal = parseInt(xp.value) || 0;
 let xpFactor = xpVal < 10000 ? 0.2 : 0.3;
@@ -456,8 +484,19 @@ total += xpBonus;
 
 // BREAKDOWN TEXT
 lastBreakdown =
-`BASE PRICE: $${base}
+`BASE PRICE: $${Math.round(base)}
 
+APPEARANCE: ${appearanceAdd >= 0 ? "+" : "-"}$${Math.round(Math.abs(appearanceAdd))}
+
+TRAINING: ${trainingAdd >= 0 ? "+" : "-"}$${Math.round(Math.abs(trainingAdd))}
+
+CONDITION: ${conditionAdd >= 0 ? "+" : "-"}$${Math.round(Math.abs(conditionAdd))}
+
+XP: +$${Math.round(xpBonus)}
+
+OTHER: ${otherAdd >= 0 ? "+" : "-"}$${Math.round(Math.abs(otherAdd))}
+
+────────────────────
 
 FINAL PRICE: $${Math.round(total)}`;
 
