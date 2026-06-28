@@ -126,8 +126,8 @@ button {
 <option value="1">Sabino</option>
 </select>
 
-<label>Color</label>
-<select id="Color">
+<label>color</label>
+<select id="color">
 <option value="1">Chestnut</option>
 <option value="1">Bay</option>
 <option value="1">Black</option>
@@ -158,7 +158,7 @@ button {
 </select>
 
 <label>XP</label>
-<input type="number" id="xp" min="0" step="1" value="0">
+<input type="number" id="xp" min="0" max="10000" step="1" value="0">
 
 <label>Max XP (10k)</label>
 <select id="maxxp">
@@ -218,7 +218,7 @@ button {
 <option value="0.7">Chronic condition</option>
 </select>
 
-<label>Papers</label>
+<label>Papers Available</label>
 <select id="papers">
 <option value="1">No</option>
 <option value="1.1">Yes</option>
@@ -226,7 +226,7 @@ button {
 
 </div>
 
-<button id="calcBtn" onclick="calculate()">GENERATE PRICE</button>
+<button id="calcBtn" onclick="calculate()">calculate Horse Price</button>
 
 <div class="result" id="result"></div>
 
@@ -241,7 +241,7 @@ const breed = document.getElementById("breed");
 const bred = document.getElementById("bred");
 const sex = document.getElementById("sex");
 const pattern = document.getElementById("pattern");
-const Color = document.getElementById("Color");
+const color = document.getElementById("Color");
 const breedtype = document.getElementById("breedtype");
 const xp = document.getElementById("xp");
 const rp = document.getElementById("rp");
@@ -398,7 +398,7 @@ window.onload = () => {
 
 const breedList = document.getElementById("breedList");
 const patternSelect = document.getElementById("pattern");
-const colorSelect = document.getElementById("Color");
+const colorSelect = document.getElementById("color");
 
 let sorted = Object.keys(breeds).sort();
 
@@ -410,7 +410,7 @@ for (let p in patterns) {
   patternSelect.innerHTML += `<option value="${p}">${p}</option>`;
 }
 
-for (let c in Color) {
+for (let c in color) {
   colorSelect.innerHTML += `<option value="${c}">${c}</option>`;
 }
 
@@ -430,7 +430,7 @@ console.log("Base:", base);
 console.log("Breed:", breed.value);
 console.log("Pattern:", pattern.value);
 console.log("Pattern Bonus:", patterns[pattern.value]);
-console.log("Color:", Color.value);
+console.log("color:", color.value);
 console.log("Color Bonus:", color[Color.value]);
 
 let appearanceAdd = 0;
@@ -442,7 +442,7 @@ let total = base *
 parseFloat(bred.value) *
 parseFloat(sex.value) *
 (1 + patterns[pattern.value]) *
-(1 + color[Color.value]) *
+(1 + color[color.value]) *
 parseFloat(breedtype.value);
 
 let rpMult = 1;
@@ -461,7 +461,7 @@ total *= rpMult;
 
 // APPEARANCE
 appearanceAdd =
-base * color[Color.value] +
+base * color[color.value] +
 base * patterns[pattern.value];
 
 // TRAINING
