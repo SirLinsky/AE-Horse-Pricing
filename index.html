@@ -241,7 +241,7 @@ const breed = document.getElementById("breed");
 const bred = document.getElementById("bred");
 const sex = document.getElementById("sex");
 const pattern = document.getElementById("pattern");
-const color = document.getElementById("Color");
+const colorSelect = document.getElementById("color");
 const breedtype = document.getElementById("breedtype");
 const xp = document.getElementById("xp");
 const rp = document.getElementById("rp");
@@ -364,7 +364,7 @@ const patterns = {
 };
 
 // COLORS
-const color = {
+const colorMap = {
 "Chestnut":0.10,
 "Black":0.10,
 "Bay":0.10,
@@ -430,7 +430,7 @@ console.log("Base:", base);
 console.log("Breed:", breed.value);
 console.log("Pattern:", pattern.value);
 console.log("Pattern Bonus:", patterns[pattern.value]);
-console.log("color:", color.value);
+console.log("Color Bonus:", color[color.value]);
 console.log("Color Bonus:", color[Color.value]);
 
 let appearanceAdd = 0;
@@ -441,8 +441,8 @@ let otherAdd = 0;
 let total = base *
 parseFloat(bred.value) *
 parseFloat(sex.value) *
-(1 + patterns[pattern.value]) *
-(1 + color[color.value]) *
+(1 + (patterns[pattern.value] ?? 0)) *
+(1 + (color[color.value] ?? 0)) *
 parseFloat(breedtype.value);
 
 let rpMult = 1;
@@ -461,8 +461,9 @@ total *= rpMult;
 
 // APPEARANCE
 appearanceAdd =
-base * color[color.value] +
-base * patterns[pattern.value];
+appearanceAdd =
+base * (color[color.value] ?? 0) +
+base * (patterns[pattern.value] ?? 0);
 
 // TRAINING
 trainingAdd =
