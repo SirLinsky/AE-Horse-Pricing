@@ -109,52 +109,52 @@ button {
 
 <label>Pattern</label>
 <select id="pattern">
-<option value="1">Zebra</option>
-<option value="1">Leopard</option>
-<option value="1">Blanket</option>
-<option value="1">Snowflake</option>
-<option value="1">Few Spotted</option>
-<option value="1">Tovero</option>
-<option value="1">Tobiano</option>
-<option value="1">Overo</option>
-<option value="1">Solid</option>
-<option value="1">Splashed White</option>
-<option value="1">Rabicano</option>
-<option value="1">Brindle</option>
-<option value="1">Dun</option>
-<option value="1">Roan</option>
-<option value="1">Sabino</option>
+<option value="Solid">Solid</option>
+<option value="Zebra">Zebra</option>
+<option value="Leopard">Leopard</option>
+<option value="Blanket">Blanket</option>
+<option value="Snowflake">Snowflake</option>
+<option value="Few Spotted">Few Spotted</option>
+<option value="Tovero">Tovero</option>
+<option value="Tobiano">Tobiano</option>
+<option value="Overo">Overo</option>
+<option value="Splashed White">Splashed White</option>
+<option value="Rabicano">Rabicano</option>
+<option value="Brindle">Brindle</option>
+<option value="Dun">Dun</option>
+<option value="Roan">Roan</option>
+<option value="Sabino">Sabino</option>
 </select>
 
 <label>color</label>
 <select id="color">
-<option value="1">Chestnut</option>
-<option value="1">Bay</option>
-<option value="1">Black</option>
-<option value="1">Flaxen Chestnut</option>
-<option value="1">Pangare Chestnut</option>
-<option value="1">Pangare Bay</option>
-<option value="1">Palomino</option>
-<option value="1">Buckskin</option>
-<option value="1">Smokey Black</option>
-<option value="1">Cremello</option>
-<option value="1">Perlino</option>
-<option value="1">Smokey Cream</option>
-<option value="1">Gold Champagne</option>
-<option value="1">Amber Champagne</option>
-<option value="1">Classic Champagne</option>
-<option value="1">Gold Cream Champagne</option>
-<option value="1">Amber Cream Champagne</option>
-<option value="1">Classic Cream Champagne</option>
-<option value="1">Grey</option>
-<option value="1">Rose Grey</option>
-<option value="1">Dominant White</option>
-<option value="1">Red Mushroom</option>
-<option value="1">Bay Mushroom</option>
-<option value="1">Silver Black</option>
-<option value="1">Silver Bay</option>
-<option value="1">Silver Smokey Black</option>
-<option value="1">Silver Buckskin</option>
+<option value="Chestnut">Chestnut</option>
+<option value="Bay">Bay</option>
+<option value="Black">Black</option>
+<option value="Flaxen Chestnut">Flaxen Chestnut</option>
+<option value="Pangare Chestnut">Pangare Chestnut</option>
+<option value="Pangare Bay">Pangare Bay</option>
+<option value="Palomino">Palomino</option>
+<option value="Buckskin">Buckskin</option>
+<option value="Smokey Black">Smokey Black</option>
+<option value="Cremello">Cremello</option>
+<option value="Perlino">Perlino</option>
+<option value="Smokey Cream">Smokey Cream</option>
+<option value="Gold Champagne">Gold Champagne</option>
+<option value="Amber Champagne">Amber Champagne</option>
+<option value="Classic Champagne">Classic Champagne</option>
+<option value="Gold Cream Champagne">Gold Cream Champagne</option>
+<option value="Amber Cream Champagne">Amber Cream Champagne</option>
+<option value="Classic Cream Champagne">Classic Cream Champagne</option>
+<option value="Grey">Grey</option>
+<option value="Rose Grey">Rose Grey</option>
+<option value="Dominant White">Dominant White</option>
+<option value="Red Mushroom">Red Mushroom</option>
+<option value="Bay Mushroom">Bay Mushroom</option>
+<option value="Silver Black">Silver Black</option>
+<option value="Silver Bay">Silver Bay</option>
+<option value="Silver Smokey Black">Silver Smokey Black</option>
+<option value="Silver Buckskin">Silver Buckskin</option>
 </select>
 
 <label>XP</label>
@@ -424,7 +424,8 @@ let lastBreakdown = "";
 
 function calculate(){
 
-let base = breeds[breed.value];
+let base = breeds[breed.value.trim()];
+let base = breeds[breedName];
 
 console.log("Base:", base);
 console.log("Breed:", breed.value);
