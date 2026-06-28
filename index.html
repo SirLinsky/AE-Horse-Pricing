@@ -377,6 +377,8 @@ const colors = {
 window.onload = () => {
 
 const breedList = document.getElementById("breedList");
+const patternSelect = document.getElementById("pattern");
+const colorSelect = document.getElementById("Color");
 
 let sorted = Object.keys(breeds).sort();
 
@@ -384,14 +386,14 @@ for (let b of sorted) {
   breedList.innerHTML += `<option value="${b}">`;
 }
 
-
-for(let p in patterns){
-pattern.innerHTML += `<option value="${p}">${p}</option>`;
+for (let p in patterns) {
+  patternSelect.innerHTML += `<option value="${p}">${p}</option>`;
 }
 
-for(let c in colors){
-color.innerHTML += `<option value="${c}">${c}</option>`;
+for (let c in colors) {
+  colorSelect.innerHTML += `<option value="${c}">${c}</option>`;
 }
+
 };
 
 function toggleRP(){
