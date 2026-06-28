@@ -420,15 +420,6 @@ let lastBreakdown = "";
 
 function calculate(){
 
-xp.addEventListener("input", () => {
-  let val = parseInt(xp.value);
-
-  if (isNaN(val)) return;
-
-  if (val > 10000) xp.value = 10000;
-  if (val < 0) xp.value = 0;
-});
-
 let breedName = breed.value.trim();
 let base = breeds[breedName];
 
@@ -490,7 +481,6 @@ base * (parseFloat(papers.value)-1);
 // XP
 let xpVal = parseInt(xp.value) || 0;
 
-// limit auf 10000
 if (xpVal > 10000) {
   xpVal = 10000;
 }
@@ -499,7 +489,6 @@ if (xpVal < 0) {
   xpVal = 0;
 }
 
-// WICHTIG: Input zurücksetzen
 xp.value = xpVal;
 
 let xpFactor = xpVal === 10000 ? 0.3 : 0.2;
@@ -532,7 +521,14 @@ function copyText(){
 navigator.clipboard.writeText(lastBreakdown);
 alert("Copied breakdown!");
 }
+xp.addEventListener("input", () => {
+  let val = parseInt(xp.value);
 
+  if (isNaN(val)) val = 0;
+
+  if (val > 10000) xp.value = 10000;
+  if (val < 0) xp.value = 0;
+});
 </script>
 
 </body>
