@@ -420,6 +420,15 @@ let lastBreakdown = "";
 
 function calculate(){
 
+xp.addEventListener("input", () => {
+  let val = parseInt(xp.value);
+
+  if (isNaN(val)) return;
+
+  if (val > 10000) xp.value = 10000;
+  if (val < 0) xp.value = 0;
+});
+
 let breedName = breed.value.trim();
 let base = breeds[breedName];
 
