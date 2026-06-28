@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RedM Horse Pricing</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background:#111;
+  color:#fff;
+  padding:20px;
+}
+
+.container {
+  max-width:700px;
+  margin:auto;
+  background:#1c1c1c;
+  padding:20px;
+  border-radius:10px;
+}
+
+select, input {
+  width:100%;
+  padding:8px;
+  margin:5px 0 15px 0;
+}
+
+.section {
+  margin-bottom:20px;
+  padding-bottom:10px;
+  border-bottom:1px solid #333;
+}
+
+#rpSection {
+  display:none;
+  background:#222;
+  padding:10px;
+  border-radius:8px;
+}
+
+button {
+  width:100%;
+  padding:10px;
+  background:#4caf50;
+  border:none;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.result {
+  margin-top:20px;
+  font-size:18px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>RedM Horse Pricing System</h2>
+
+<!-- CORE -->
+<div class="section">
+
+<label>Breed</label>
+<select id="breed"></select>
+
+<label>Bred / Custom</label>
+<select id="bred">
+<option value="1">Bred</option>
+<option value="0.9">Custom</option>
+</select>
+
+<label>Sex</label>
+<select id="sex">
+<option value="1">Mare</option>
+<option value="1">Stallion</option>
+<option value="0.8">Gelding</option>
+<option value="0.8">Spayed</option>
+</select>
+
+<label>Pattern</label>
+<select id="pattern"></select>
+
+<label>Color</label>
+<select id="color"></select>
+
+<label>XP</label>
+<input type="number" id="xp" value="0">
+
+<label>Max XP (10k+)</label>
+<select id="maxxp">
+<option value="0">No</option>
+<option value="1">Yes</option>
+</select>
+
+<label>Purebred / Mixed</label>
+<select id="breedtype">
+<option value="1.2">Purebred</option>
+<option value="0.9">Mixed</option>
+</select>
+
+<label>RP Enabled?</label>
+<select id="rp" onchange="toggleRP()">
+<option value="0">No</option>
+<option value="1">Yes</option>
+</select>
+
+</div>
+
+<!-- RP SECTION -->
+<div id="rpSection">
+
+<label>Age</label>
+<select id="age">
+<option value="1.1">1-3</option>
+<option value="1.05">3-6</option>
+<option value="1">6-10</option>
+<option value="1">10-15</option>
+<option value="0.95">15-20</option>
+<option value="0.8">20+</option>
+</select>
+
+<label>Full Lineage</label>
+<select id="lineage">
+<option value="1">No</option>
+<option value="1.1">Yes</option>
+</select>
+
+<label>Experience</label>
+<select id="exp">
+<option value="0.8">Unhandled</option>
+<option value="1">Started</option>
+<option value="1">Green</option>
+<option value="1.1">Intermediate</option>
+<option value="1.15">Advanced</option>
+<option value="1.2">Elite</option>
+</select>
+
+<label>Competition Placings</label>
+<select id="comp">
+<option value="1">No</option>
+<option value="1.1">Yes</option>
+</select>
+
+<label>Health Status</label>
+<select id="health">
+<option value="1.1">Clean</option>
+<option value="1">Minor injuries</option>
+<option value="0.9">Moderate injuries</option>
+<option value="0.85">Severe injuries</option>
+<option value="0.8">Current injury</option>
+<option value="0.7">Chronic condition</option>
+</select>
+
+<label>Papers</label>
+<select id="papers">
+<option value="1">No</option>
+<option value="1.1">Yes</option>
+</select>
+
+</div>
+
+<button onclick="calculate()">Calculate Price</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+<script>
+// ---------------- BASE PRICES ----------------
+const breeds = {
+"Mule":4500,
+"Mammoth jackstock":5400,
+"Ardennes":6300,
+"Belgian":6300,
+"Shire":6300,
+"Suffolk Punch":5400,
+"Breton":6300,
+"Clydesdale":6300,
+"Blackforest":5400,
+"Canadian Horse":5400,
+"Sugarbush":6300,
+"Norfolk Roaster":7200,
+"Comtois":6300,
+"Percheron Draft Mule":5400,
+"American Cream":5400,
+"Noriker":4950,
+"American Standard":6300,
+"Dutch Warmblood":6750,
+"Hungarian Halfbred":6750,
+"Oldenburger":7200,
+"Holsteiner":7200,
+"Selle Francais":7200,
+"Arabian":8100,
+"Thoroughbred":8100,
+"Turkoman":8100,
+"Nez Perce":8100,
+"Pintabian":8100,
+"Trotteur Francais":7200,
+"Akhal Teke":8100,
+"Egyptian Arabian":7200,
+"Anglo-Arabian":7200,
+"Kentucky Saddler":6300,
+"Missouri Fox Trotter":8100,
+"Tiger Horse":8100,
+"Rocky Mountain Horse":7200,
+"Tennessee Walker":6750,
+"Icelandic":6300,
+"Pony":5400,
+"Haflinger":5400,
+"Irish Cob":6300,
+"Fjord":6750,
+"Shetland":4050,
+"Welsh Pony":5400,
+"Mustang":6750,
+"Nokota":6750,
+"HOA":9000,
+"Mangy":4500,
+"Donkey":4500,
+"Zebra":5400,
+"Przewalski":7200,
+"Friesian":7200,
+"Andalusian":7200,
+"Kladruber":7200,
+"Menorquin":7650,
+"Lipizzaner":7650,
+"Murgese":7200,
+"Lusitano":7200,
+"Knabstrupper":6300,
+"Appaloosa":6300,
+"Criollo":6750,
+"Morgan":6300,
+"Emberian":9000
+};
+
+// ---------------- PATTERNS ----------------
+const patterns = {
+"None":0,
+"Zebra":0.15,
+"Leopard":0.25,
+"Blanket":0.25,
+"Snowflake":0.25,
+"Few Spotted":0.25,
+"Sabino":0.30,
+"Tobiano":0.35,
+"Overo":0.35,
+"Tovero":0.35,
+"Splashed White":0.30,
+"Rabicano":0.30,
+"Brindle":0.20,
+"Dun":0.25,
+"Roan":0.30,
+"Solid":0.30
+};
+
+// ---------------- COLORS ----------------
+const colors = {
+"Chestnut":0.10,
+"Black":0.10,
+"Bay":0.10,
+"Flaxen Chestnut":0.12,
+"Pangare Chestnut":0.12,
+"Pangare Bay":0.12,
+"Palomino":0.13,
+"Smokey Black":0.13,
+"Buckskin":0.13,
+"Cremello":0.15,
+"Smokey Cream":0.15,
+"Perlino":0.15,
+"Grey":0.10,
+"Rose Grey":0.12
+};
+
+// populate dropdowns
+window.onload = () => {
+
+for(let b in breeds){
+breed.innerHTML += `<option value="${b}">${b}</option>`;
+}
+
+for(let p in patterns){
+pattern.innerHTML += `<option value="${p}">${p}</option>`;
+}
+
+for(let c in colors){
+color.innerHTML += `<option value="${c}">${c}</option>`;
+}
+};
+
+function toggleRP(){
+document.getElementById("rpSection").style.display =
+rp.value == "1" ? "block" : "none";
+}
+
+function calculate(){
+
+let base = breeds[breed.value];
+
+// multipliers
+let total =
+base *
+parseFloat(bred.value) *
+parseFloat(sex.value) *
+(1 + patterns[pattern.value]) *
+(1 + colors[color.value]) *
+parseFloat(breedtype.value);
+
+// RP
+if(rp.value == "1"){
+total *= parseFloat(age.value) *
+parseFloat(lineage.value) *
+parseFloat(exp.value) *
+parseFloat(comp.value) *
+parseFloat(health.value) *
+parseFloat(papers.value);
+}
+
+// XP
+let xpVal = parseInt(xp.value) || 0;
+let xpFactor = xpVal < 10000 ? 0.2 : 0.3;
+let xpBonus = xpVal * xpFactor;
+
+total += xpBonus;
+
+document.getElementById("result").innerHTML =
+"Final Price: $" + Math.round(total);
+}
+</script>
+
+</body>
+</html>
