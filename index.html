@@ -454,24 +454,10 @@ let xpBonus = xpVal * xpFactor;
 
 total += xpBonus;
 
-let appearanceAdd = patternAdd + ColorAdd;
-let trainingAdd = expAdd + compAdd;
-let conditionAdd = ageAdd + sexAdd + healthAdd + breedtypeAdd;
-let otherAdd = bredAdd + lineageAdd + papersAdd;
-
 // BREAKDOWN TEXT
 lastBreakdown =
 `BASE PRICE: $${base}
 
-APPEARANCE: $${Math.round(appearanceAdd)}
-
-TRAINING: $${Math.round(trainingAdd)}
-
-CONDITION: $${Math.round(conditionAdd)}
-
-XP BONUS: $${Math.round(xpBonus)}
-
-OTHER: $${Math.round(otherAdd)}
 
 FINAL PRICE: $${Math.round(total)}`;
 
