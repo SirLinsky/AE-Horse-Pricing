@@ -430,10 +430,10 @@ console.log("Base:", base);
 console.log("Breed:", breed.value);
 console.log("Pattern:", pattern.value);
 console.log("Pattern Bonus:", patterns[pattern.value] ?? 0);
-console.log("Color Bonus:", colorMap[colorSelect.value]);
+console.log("Color Bonus:", colorMap[colorSelect.value] ?? 0);
 
 let appearanceAdd = 0;
-let trainingAdd = 0;
+let performanceAdd = 0;
 let conditionAdd = 0;
 let otherAdd = 0;
 
@@ -463,7 +463,7 @@ appearanceAdd =
 base * (colorMap[colorSelect.value] ?? 0) +
 base * (patterns[pattern.value] ?? 0);
 
-// TRAINING
+// PERFORMANCE
 performanceAdd =
 base * (parseFloat(exp.value)-1) +
 base * (parseFloat(comp.value)-1);
@@ -480,7 +480,7 @@ otherAdd =
 base * (parseFloat(bred.value)-1) +
 base * (parseFloat(lineage.value)-1) +
 base * (parseFloat(papers.value)-1);
-  
+
 // XP
 let xpVal = parseInt(xp.value) || 0;
 let xpFactor = xpVal < 10000 ? 0.2 : 0.3;
@@ -488,7 +488,6 @@ let xpBonus = xpVal * xpFactor;
 
 total += xpBonus;
 
-// BREAKDOWN TEXT
 lastBreakdown =
 `BASE PRICE: $${Math.round(base)}
 
