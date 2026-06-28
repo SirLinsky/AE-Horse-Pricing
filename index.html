@@ -464,7 +464,7 @@ base * (colorMap[colorSelect.value] ?? 0) +
 base * (patterns[pattern.value] ?? 0);
 
 // TRAINING
-trainingAdd =
+performanceAdd =
 base * (parseFloat(exp.value)-1) +
 base * (parseFloat(comp.value)-1);
 
@@ -494,7 +494,7 @@ lastBreakdown =
 
 APPEARANCE: ${appearanceAdd >= 0 ? "+" : "-"}$${Math.round(Math.abs(appearanceAdd))}
 
-TRAINING: ${trainingAdd >= 0 ? "+" : "-"}$${Math.round(Math.abs(trainingAdd))}
+PERFORMANCE: ${performanceAdd >= 0 ? "+" : "-"}$${Math.round(Math.abs(trainingAdd))}
 
 CONDITION: ${conditionAdd >= 0 ? "+" : "-"}$${Math.round(Math.abs(conditionAdd))}
 
