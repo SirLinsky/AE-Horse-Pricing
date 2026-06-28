@@ -240,7 +240,7 @@ button {
 const breed = document.getElementById("breed");
 const bred = document.getElementById("bred");
 const sex = document.getElementById("sex");
-const pattern = document.getElementById("pattern");
+const patternSelect = document.getElementById("pattern");
 const colorSelect = document.getElementById("color");
 const breedtype = document.getElementById("breedtype");
 const xp = document.getElementById("xp");
@@ -248,7 +248,7 @@ const rp = document.getElementById("rp");
 const rpSection = document.getElementById("rpSection");
 const result = document.getElementById("result");
 const copyBtn = document.getElementById("copyBtn");
-
+  
 const age = document.getElementById("age");
 const lineage = document.getElementById("lineage");
 const exp = document.getElementById("exp");
@@ -396,24 +396,24 @@ const colorMap = {
 
 window.onload = () => {
 
-const breedList = document.getElementById("breedList");
-const patternSelect = document.getElementById("pattern");
-const colorSelect = document.getElementById("color");
+ const breedList = document.getElementById("breedList");
 
-let sorted = Object.keys(breeds).sort();
+  const patternSelect = document.getElementById("pattern");
+  const colorSelect = document.getElementById("color");
 
-for (let b of sorted) {
-  breedList.innerHTML += `<option value="${b}">`;
-}
+  let sorted = Object.keys(breeds).sort();
 
-for (let p in patterns) {
-  patternSelect.innerHTML += `<option value="${p}">${p}</option>`;
-}
+  for (let b of sorted) {
+    breedList.innerHTML += `<option value="${b}">`;
+  }
 
-for (let c in color) {
-  colorSelect.innerHTML += `<option value="${c}">${c}</option>`;
-}
+  for (let p in patterns) {
+    patternSelect.innerHTML += `<option value="${p}">${p}</option>`;
+  }
 
+  for (let c in colorMap) {
+    colorSelect.innerHTML += `<option value="${c}">${c}</option>`;
+  }
 };
 
 function toggleRP(){
@@ -429,7 +429,7 @@ let base = breeds[breed.value];
 console.log("Base:", base);
 console.log("Breed:", breed.value);
 console.log("Pattern:", pattern.value);
-console.log("Pattern Bonus:", patterns[pattern.value]);
+console.log("Pattern Bonus:", patterns[pattern.value] ?? 0);
 console.log("Color Bonus:", colorMap[colorSelect.value]);
 
 let appearanceAdd = 0;
@@ -459,7 +459,6 @@ parseFloat(papers.value);
 total *= rpMult;
 
 // APPEARANCE
-appearanceAdd =
 appearanceAdd =
 base * (colorMap[colorSelect.value] ?? 0) +
 base * (patterns[pattern.value] ?? 0);
