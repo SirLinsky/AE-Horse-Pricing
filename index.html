@@ -376,10 +376,15 @@ const colors = {
 
 window.onload = () => {
 
+const breedList = document.getElementById("breedList");
+
 let sorted = Object.keys(breeds).sort();
-for(let b of sorted){
-breedList.innerHTML += `<option value="${b}">`;
+
+for (let b of sorted) {
+  breedList.innerHTML += `<option value="${b}">`;
 }
+
+};
 
 for(let p in patterns){
 pattern.innerHTML += `<option value="${p}">${p}</option>`;
