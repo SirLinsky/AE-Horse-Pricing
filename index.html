@@ -410,7 +410,7 @@ for (let p in patterns) {
   patternSelect.innerHTML += `<option value="${p}">${p}</option>`;
 }
 
-for (let c in colors) {
+for (let c in Color) {
   colorSelect.innerHTML += `<option value="${c}">${c}</option>`;
 }
 
@@ -430,7 +430,7 @@ let total = base *
 parseFloat(bred.value) *
 parseFloat(sex.value) *
 (1 + patterns[pattern.value]) *
-(1 + colors[color.value]) *
+(1 + Color[color.value]) *
 parseFloat(breedtype.value);
 
 let rpMult = 1;
@@ -458,7 +458,7 @@ total += xpBonus;
 lastBreakdown =
 `BASE PRICE: $${base}
 
-MULTIPLIERS: ${rpMult.toFixed(2)}
+Additions: ${rpMult.toFixed(2)}
 
 XP BONUS: $${xpBonus}
 
