@@ -486,7 +486,12 @@ base * (parseFloat(papers.value)-1);
 
 // XP
 let xpVal = parseInt(xp.value) || 0;
-let xpFactor = xpVal < 10000 ? 0.2 : 0.3;
+
+if (xpVal > 10000) {
+  xpVal = 10000;
+}
+
+let xpFactor = xpVal === 10000 ? 0.3 : 0.2;
 let xpBonus = xpVal * xpFactor;
 
 total += xpBonus;
