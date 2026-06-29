@@ -527,9 +527,9 @@ xp.addEventListener("input", () => {
 rp.addEventListener("change", () => {
   toggleRP();
 
-  lastBreakdown = "";
-  result.innerText = "";
-  copyBtn.style.display = "none";
+  if (lastBreakdown !== "") {
+    calculate();
+  }
 });
 
 </script>
