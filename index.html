@@ -420,23 +420,33 @@ appearanceAdd =
 base * (colorMap[colorSelect.value] ?? 0) +
 base * (patterns[pattern.value] ?? 0);
 
-// PERFORMANCE
-performanceAdd =
-base * (parseFloat(exp.value)-1) +
-base * (parseFloat(comp.value)-1);
+if (rp.value == "1") {
 
-// CONDITION
-conditionAdd =
-base * (parseFloat(age.value)-1) +
-base * (parseFloat(sex.value)-1) +
-base * (parseFloat(health.value)-1) +
-base * (parseFloat(breedtype.value)-1);
+  // PERFORMANCE
+  performanceAdd =
+  base * (parseFloat(exp.value)-1) +
+  base * (parseFloat(comp.value)-1);
 
-// OTHER
-otherAdd =
-base * (parseFloat(bred.value)-1) +
-base * (parseFloat(lineage.value)-1) +
-base * (parseFloat(papers.value)-1);
+  // CONDITION
+  conditionAdd =
+  base * (parseFloat(age.value)-1) +
+  base * (parseFloat(sex.value)-1) +
+  base * (parseFloat(health.value)-1) +
+  base * (parseFloat(breedtype.value)-1);
+
+  // OTHER
+  otherAdd =
+  base * (parseFloat(bred.value)-1) +
+  base * (parseFloat(lineage.value)-1) +
+  base * (parseFloat(papers.value)-1);
+
+} else {
+
+  performanceAdd = 0;
+  conditionAdd = 0;
+  otherAdd = 0;
+
+}
 
 // XP
 let xpVal = parseInt(xp.value) || 0;
@@ -455,6 +465,20 @@ let xpFactor = xpVal === 10000 ? 0.35 : 0.25;
 let xpBonus = xpVal * xpFactor;
 
 total += xpBonus;
+
+// Bonding Bonus
+let bondingBonus = 0;
+
+if (xpVal >= 8000) {
+  bondingBonus = 0.09;
+} else if (xpVal >= 6000) {
+  bondingBonus = 0.06;
+} else if (xpVal >= 4000) {
+  bondingBonus = 0.03;
+}
+
+performanceAdd += base * bondingBonus;
+total += base * bondingBonus;
 
 lastBreakdown =
 `BASE PRICE: $${Math.round(base)}
