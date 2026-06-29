@@ -122,6 +122,12 @@ button {
 <label>XP</label>
 <input type="number" id="xp" min="0" max="10000" step="100" value="0">
 
+<label>Max Stats</label>
+<select id="maxStats">
+  <option value="0">No</option>
+  <option value="0.1">Yes</option>
+</select>
+
 <label>RP Enabled?</label>
 <select id="rp" onchange="toggleRP()">
 <option value="0">No</option>
@@ -200,6 +206,7 @@ const patternSelect = document.getElementById("pattern");
 const colorSelect = document.getElementById("color");
 const breedtype = document.getElementById("breedtype");
 const xp = document.getElementById("xp");
+const maxStats = document.getElementById("maxStats");
 const rp = document.getElementById("rp");
 const rpSection = document.getElementById("rpSection");
 const result = document.getElementById("result");
@@ -436,6 +443,7 @@ if (rp.value == "1") {
   performanceAdd =
   base * (parseFloat(exp.value)-1) +
   base * (parseFloat(comp.value)-1);
+  performanceAdd += base * (parseFloat(maxStats.value) || 0);
 
   // CONDITION
   conditionAdd =
