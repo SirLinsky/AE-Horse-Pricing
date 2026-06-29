@@ -373,7 +373,17 @@ window.onload = () => {
 };
 
 function toggleRP(){
-rpSection.style.display = rp.value == "1" ? "block" : "none";
+  rpSection.style.display = rp.value == "1" ? "block" : "none";
+
+  if (rp.value == "0") {
+
+    age.value = "1";
+    lineage.value = "1";
+    exp.value = "1";
+    comp.value = "1";
+    health.value = "1";
+    papers.value = "1";
+  }
 }
 
 let lastBreakdown = "";
@@ -513,6 +523,12 @@ xp.addEventListener("input", () => {
   if (val > 10000) xp.value = 10000;
   if (val < 0) xp.value = 0;
 });
+
+rp.addEventListener("change", () => {
+  toggleRP();
+  calculate();
+});
+
 </script>
 
 </body>
