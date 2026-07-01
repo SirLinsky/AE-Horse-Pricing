@@ -440,6 +440,11 @@ appearanceAdd =
 base * (colorMap[colorSelect.value] ?? 0) +
 base * (patterns[pattern.value] ?? 0);
 
+// CONDITION (always applies)
+conditionAdd =
+base * (parseFloat(sex.value)-1) +
+base * (parseFloat(breedtype.value)-1) +
+
 if (rp.value == "1") {
 
   // PERFORMANCE
@@ -448,12 +453,10 @@ if (rp.value == "1") {
   base * (parseFloat(comp.value)-1);
   performanceAdd += base * (parseFloat(maxStats.value) || 0);
 
-  // CONDITION
-  conditionAdd =
-  base * (parseFloat(age.value)-1) +
-  base * (parseFloat(sex.value)-1) +
-  base * (parseFloat(health.value)-1) +
-  base * (parseFloat(breedtype.value)-1);
+// CONDITION (RP only)
+conditionAdd +=
+base * (parseFloat(age.value)-1) +
+base * (parseFloat(health.value)-1);
 
   // OTHER
   otherAdd =
@@ -464,7 +467,6 @@ if (rp.value == "1") {
 } else {
 
   performanceAdd = 0;
-  conditionAdd = 0;
   otherAdd = 0;
 
 }
