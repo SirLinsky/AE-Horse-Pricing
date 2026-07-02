@@ -90,15 +90,7 @@ button {
 
 <h2>AE Horse Pricing System</h2>
 
-<!--BUTTONS-->
-<button id="calcBtn" onclick="calculate()">Calculate Horse Price</button>
-
-<div class="result" id="result"></div>
-
-<button id="copyBtn" onclick="copyText()">Copy Breakdown</button>
-
 <!--INPUT-->
-</div>
 <div class="section">
 
 <label>Breeds</label>
@@ -207,6 +199,14 @@ button {
 </select>
 
 </div>
+
+<!--BUTTONS-->
+<button id="calcBtn" onclick="calculate()">Calculate Horse Price</button>
+
+<div class="result" id="result"></div>
+
+<button id="copyBtn" onclick="copyText()">Copy Breakdown</button>
+  
 </div>
 <!-- JAVA SCRIPT START -->
 <script>
@@ -556,8 +556,6 @@ RECOMMENDED LISTING PRICE: $${roundedPrice}`;
 result.innerText = lastBreakdown;
 copyBtn.style.display = "block";
 }
-
-  <script>
 
   // FUNCTIONS AND EVENT LISTENERS
 
