@@ -209,7 +209,8 @@ const bred = document.getElementById("bred");
 const sex = document.getElementById("sex");
 const patternSelect = document.getElementById("pattern");
 const colorSelect = document.getElementById("color");
-const breedtype = document.getElementById("breedtypeSection");
+const breedtype = document.getElementById("breedtype");
+const breedtypeSection = document.getElementById("breedtypeSection");
 const xp = document.getElementById("xp");
 const maxStats = document.getElementById("maxStats");
 const rp = document.getElementById("rp");
@@ -458,6 +459,14 @@ conditionAdd =
 base * (parseFloat(sex.value)-1) +
 base * (parseFloat(breedtype.value)-1);
 
+// Breeding Fee Refund
+let breedingBonus = 0;
+
+if (bred.value == "1") {
+    breedingBonus = 1500;
+    total += breedingBonus;
+}
+
 if (rp.value == "1") {
 
   // PERFORMANCE
@@ -502,14 +511,6 @@ let xpBonus = xpVal * xpFactor;
 
 total += xpBonus;
 
-// Breeding Fee Refund
-let breedingBonus = 0;
-
-if (bred.value == "1") {
-    breedingBonus = 1500;
-    total += breedingBonus;
-}
-
 // Bonding Bonus
 let bondingBonus = 0;
 
@@ -544,7 +545,7 @@ OTHER: ${otherAdd >= 0 ? "+" : "-"}$${Math.round(Math.abs(otherAdd))}
 
 FINAL PRICE: $${Math.round(total)}
 
-RECOMMENDED LISTING PRICE: $${roundedPrice}
+RECOMMENDED LISTING PRICE: $${roundedPrice}´;
 
 result.innerText = lastBreakdown;
 copyBtn.style.display = "block";
