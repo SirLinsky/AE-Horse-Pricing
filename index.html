@@ -94,7 +94,7 @@ button {
 <label>Bred / Custom</label>
 <select id="bred">
 <option value="1">Bred</option>
-<option value="0.9">Custom</option>
+<option value="0">Custom</option>
 </select>
 
 <label>Purebred / Mixed</label>
@@ -415,7 +415,6 @@ let conditionAdd = 0;
 let otherAdd = 0;
 
 let total = base *
-parseFloat(bred.value) *
 parseFloat(sex.value) *
 (1 + (patterns[pattern.value] ?? 0)) *
 (1 + (colorMap[colorSelect.value] ?? 0)) *
@@ -460,7 +459,7 @@ base * (parseFloat(health.value)-1);
 
   // OTHER
   otherAdd =
-  base * (parseFloat(bred.value)-1) +
+  breedingBonus +
   base * (parseFloat(lineage.value)-1) +
   base * (parseFloat(papers.value)-1);
 
@@ -489,6 +488,14 @@ let xpBonus = xpVal * xpFactor;
 
 total += xpBonus;
 
+// Breeding Fee Refund
+let breedingBonus = 0;
+
+if (bred.value == "1") {
+    breedingBonus = 1500;
+    total += breedingBonus;
+}
+
 // Bonding Bonus
 let bondingBonus = 0;
 
@@ -502,6 +509,9 @@ if (xpVal >= 8000) {
 
 performanceAdd += base * bondingBonus;
 total += base * bondingBonus;
+
+// Round up to the next 500
+let roundedPrice = Math.ceil(total / 500) * 500;
 
 lastBreakdown =
 `BASE PRICE: $${Math.round(base)}
@@ -518,7 +528,9 @@ OTHER: ${otherAdd >= 0 ? "+" : "-"}$${Math.round(Math.abs(otherAdd))}
 
 ────────────────────
 
-FINAL PRICE: $${Math.round(total)}`;
+FINAL PRICE: $${Math.round(total)}
+
+RECOMMENDED LISTING PRICE: $${roundedPrice}
 
 result.innerText = lastBreakdown;
 copyBtn.style.display = "block";
