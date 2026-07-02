@@ -133,7 +133,7 @@ button {
 <label>Max Stats</label>
 <select id="maxStats">
   <option value="0">No</option>
-  <option value="0.1">Yes</option>
+  <option value="0.15">Yes</option>
 </select>
 
 <label>RP Enabled?</label>
@@ -479,7 +479,9 @@ if (rp.value == "1") {
   performanceAdd =
   base * (parseFloat(exp.value)-1) +
   base * (parseFloat(comp.value)-1);
-  performanceAdd += base * (parseFloat(maxStats.value) || 0);
+if (maxStats.value === "0.15") {
+  performanceAdd += base * 0.15;
+}
 
 // CONDITION (RP only)
 conditionAdd +=
