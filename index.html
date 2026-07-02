@@ -382,6 +382,7 @@ window.onload = () => {
   for (let c in colorMap) {
     colorSelect.innerHTML += `<option value="${c}">${c}</option>`;
   }
+toggleBreedType();
 };
 
 function toggleRP(){
@@ -564,6 +565,14 @@ xp.addEventListener("input", () => {
 
 rp.addEventListener("change", () => {
   toggleRP();
+
+  if (lastBreakdown !== "") {
+    calculate();
+  }
+});
+
+bred.addEventListener("change", () => {
+  toggleBreedType();
 
   if (lastBreakdown !== "") {
     calculate();
