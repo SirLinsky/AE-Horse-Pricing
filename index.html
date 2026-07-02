@@ -402,14 +402,11 @@ function toggleRP(){
 }
 
 function toggleBreedType() {
-
-  if (bred.value == "0") {
+  if (bred.value === "custom") {
     breedtypeSection.style.display = "none";
-    breedtype.value = "1";
   } else {
     breedtypeSection.style.display = "block";
   }
-
 }
 
 let lastBreakdown = "";
