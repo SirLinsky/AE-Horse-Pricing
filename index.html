@@ -476,12 +476,12 @@ if (bred.value == "bred") {
 if (rp.value == "1") {
 
   // PERFORMANCE
-  performanceAdd =
-  base * (parseFloat(exp.value)-1) +
-  base * (parseFloat(comp.value)-1);
-if (maxStats.value === "0.15") {
-  performanceAdd += base * 0.15;
-}
+let maxStatsBonus = parseFloat(maxStats.value);
+
+performanceAdd =
+base * (parseFloat(exp.value)-1) +
+base * (parseFloat(comp.value)-1) +
+base * maxStatsBonus;
 
 // CONDITION (RP only)
 conditionAdd +=
