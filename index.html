@@ -93,8 +93,8 @@ button {
 
 <label>Bred / Custom</label>
 <select id="bred">
-<option value="1">Bred</option>
-<option value="0">Custom</option>
+  <option value="bred">Bred</option>
+  <option value="custom">Custom</option>
 </select>
 
 <div id="breedtypeSection">
@@ -383,6 +383,7 @@ window.onload = () => {
   for (let c in colorMap) {
     colorSelect.innerHTML += `<option value="${c}">${c}</option>`;
   }
+
 toggleBreedType();
 };
 
@@ -462,7 +463,7 @@ base * (parseFloat(breedtype.value)-1);
 // Breeding Fee Refund
 let breedingBonus = 0;
 
-if (bred.value == "1") {
+if (bred.value == "bred") {
     breedingBonus = 1500;
     total += breedingBonus;
 }
@@ -545,7 +546,7 @@ OTHER: ${otherAdd >= 0 ? "+" : "-"}$${Math.round(Math.abs(otherAdd))}
 
 FINAL PRICE: $${Math.round(total)}
 
-RECOMMENDED LISTING PRICE: $${roundedPrice}´;
+RECOMMENDED LISTING PRICE: $${roundedPrice}`;
 
 result.innerText = lastBreakdown;
 copyBtn.style.display = "block";
