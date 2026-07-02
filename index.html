@@ -1,3 +1,5 @@
+<!-- HTML=STRUCTURE CSS=APPEARANCE JS=BEHAVIOUR -->
+<!-- HTML START -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +7,8 @@
 <title>AE Horse Pricing</title>
 
 <link rel="icon" href="https://raw.githubusercontent.com/SirLinsky/pricing-assets/main/favicon.png?v=999">
-  
+
+<!--CSS / CASCADING STYLE SHEETS START -->
 <style>
 body {
   font-family: Calibri, sans-serif;
@@ -77,6 +80,8 @@ button {
   border-radius:8px;
 }
 </style>
+<!-- CSS END -->
+
 </head>
 
 <body>
@@ -200,10 +205,12 @@ button {
 <button id="copyBtn" onclick="copyText()">Copy Breakdown</button>
 
 </div>
+<!--HTML END -->
 
+<!-- JAVA SCRIPT START -->
 <script>
 
-// DOM
+// DOM / DOCUMENT OBJECT MODEL
 const breed = document.getElementById("breed");
 const bred = document.getElementById("bred");
 const sex = document.getElementById("sex");
@@ -549,9 +556,6 @@ result.innerText = lastBreakdown;
 copyBtn.style.display = "block";
 }
 
-
-</div>
-
   <button id="calcBtn" onclick="calculate()">Calculate Horse Price</button>
 
   <div class="result" id="result"></div>
@@ -587,6 +591,8 @@ copyBtn.style.display = "block";
     toggleBreedType();
 
   </script>
+<!-- JAVA SCRIPT END -->
 
+<!-- HTML START -->
 </body>
 </html>
