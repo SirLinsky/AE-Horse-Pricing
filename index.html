@@ -90,6 +90,15 @@ button {
 
 <h2>AE Horse Pricing System</h2>
 
+<!--BUTTONS-->
+<button id="calcBtn" onclick="calculate()">Calculate Horse Price</button>
+
+<div class="result" id="result"></div>
+
+<button id="copyBtn" onclick="copyText()">Copy Breakdown</button>
+
+<!--INPUT-->
+</div>
 <div class="section">
 
 <label>Breeds</label>
@@ -143,6 +152,7 @@ button {
 
 </div>
 
+<!--RP SECTION-->
 <div id="rpSection">
 
 <label>Age</label>
@@ -197,16 +207,7 @@ button {
 </select>
 
 </div>
-
-<button id="calcBtn" onclick="calculate()">Calculate Horse Price</button>
-
-<div class="result" id="result"></div>
-
-<button id="copyBtn" onclick="copyText()">Copy Breakdown</button>
-
 </div>
-<!--HTML END -->
-
 <!-- JAVA SCRIPT START -->
 <script>
 
@@ -556,12 +557,6 @@ result.innerText = lastBreakdown;
 copyBtn.style.display = "block";
 }
 
-  <button id="calcBtn" onclick="calculate()">Calculate Horse Price</button>
-
-  <div class="result" id="result"></div>
-
-  <button id="copyBtn" onclick="copyText()">Copy Breakdown</button>
-
   <script>
 
   // FUNCTIONS AND EVENT LISTENERS
@@ -593,6 +588,7 @@ copyBtn.style.display = "block";
   </script>
 <!-- JAVA SCRIPT END -->
 
-<!-- HTML START -->
 </body>
+
 </html>
+<!--HTML END / PAGE END -->
