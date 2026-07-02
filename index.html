@@ -549,49 +549,44 @@ result.innerText = lastBreakdown;
 copyBtn.style.display = "block";
 }
 
-function copyText(){
-navigator.clipboard.writeText(lastBreakdown);
-alert("Copied breakdown!");
-}
-xp.addEventListener("input", () => {
-  let val = parseInt(xp.value);
-
-  if (isNaN(val)) val = 0;
-
-  if (val > 10000) xp.value = 10000;
-  if (val < 0) xp.value = 0;
-});
-
-rp.addEventListener("change", () => {
-  toggleRP();
-
-  if (lastBreakdown !== "") {
-    calculate();
-  }
-});
-
-bred.addEventListener("change", () => {
-  toggleBreedType();
-
-  if (lastBreakdown !== "") {
-    calculate();
-  }
-});
 
 </div>
 
-<button id="calcBtn" onclick="calculate()">Calculate Horse Price</button>
+  <button id="calcBtn" onclick="calculate()">Calculate Horse Price</button>
 
-<div class="result" id="result"></div>
+  <div class="result" id="result"></div>
 
-<button id="copyBtn" onclick="copyText()">Copy Breakdown</button>
+  <button id="copyBtn" onclick="copyText()">Copy Breakdown</button>
 
-</div>
+  <script>
 
-toggleBreedType();
+  // FUNCTIONS AND EVENT LISTENERS
 
-<script>
-</script>
+    function copyText(){
+      navigator.clipboard.writeText(lastBreakdown);
+      alert("Copied breakdown!");
+    }
+
+    xp.addEventListener("input", () => {
+      let val = parseInt(xp.value);
+      if (isNaN(val)) val = 0;
+      if (val > 10000) xp.value = 10000;
+      if (val < 0) xp.value = 0;
+    });
+
+    rp.addEventListener("change", () => {
+      toggleRP();
+      if (lastBreakdown !== "") calculate();
+    });
+
+    bred.addEventListener("change", () => {
+      toggleBreedType();
+      if (lastBreakdown !== "") calculate();
+    });
+
+    toggleBreedType();
+
+  </script>
 
 </body>
 </html>
