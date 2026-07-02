@@ -97,11 +97,13 @@ button {
 <option value="0">Custom</option>
 </select>
 
+<div id="breedtypeSection">
 <label>Purebred / Mixed</label>
 <select id="breedtype">
 <option value="1.2">Purebred</option>
 <option value="0.9">Mixed</option>
 </select>
+</div>
 
 <label>Sex</label>
 <select id="sex">
@@ -207,7 +209,7 @@ const bred = document.getElementById("bred");
 const sex = document.getElementById("sex");
 const patternSelect = document.getElementById("pattern");
 const colorSelect = document.getElementById("color");
-const breedtype = document.getElementById("breedtype");
+const breedtype = document.getElementById("breedtypeSection");
 const xp = document.getElementById("xp");
 const maxStats = document.getElementById("maxStats");
 const rp = document.getElementById("rp");
@@ -394,6 +396,17 @@ function toggleRP(){
     health.value = "1";
     papers.value = "1";
   }
+}
+
+function toggleBreedType() {
+
+  if (bred.value == "0") {
+    breedtypeSection.style.display = "none";
+    breedtype.value = "1";
+  } else {
+    breedtypeSection.style.display = "block";
+  }
+
 }
 
 let lastBreakdown = "";
