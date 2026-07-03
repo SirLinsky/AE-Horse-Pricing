@@ -473,16 +473,18 @@ if (bred.value == "bred") {
     total += breedingBonus;
 }
   
-if (rp.value == "1") {
+let maxStatsBonus = 0;
+if (maxStats.value === "0.15") {
+  maxStatsBonus = base * 0.15;
+  total += maxStatsBonus;
+  performanceAdd += maxStatsBonus;
+}
 
+if (rp.value == "1") {
   // PERFORMANCE
-performanceAdd =
+performanceAdd +=
 base * (parseFloat(exp.value)-1) +
 base * (parseFloat(comp.value)-1);
-
-if (maxStats.value === "0.15") {
-  total *= 0.15;
-}
 
 // CONDITION (RP only)
 conditionAdd +=
