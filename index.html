@@ -212,20 +212,23 @@ button {
 <script>
 
 // DOM / DOCUMENT OBJECT MODEL
-const breed = document.getElementById("breed");
-const bred = document.getElementById("bred");
-const sex = document.getElementById("sex");
-const patternSelect = document.getElementById("pattern");
-const colorSelect = document.getElementById("color");
-const breedtype = document.getElementById("breedtype");
-const breedtypeSection = document.getElementById("breedtypeSection");
-const xp = document.getElementById("xp");
-const maxStats = document.getElementById("maxStats");
-const rp = document.getElementById("rp");
-const rpSection = document.getElementById("rpSection");
-const result = document.getElementById("result");
-const copyBtn = document.getElementById("copyBtn");
-  
+ //     const=  creates a variable whose reference never changes (the values inside the HTML elements can still change, e.g. what the user types), "Eingabefeld"
+  // every input/output element by id to use below
+const breed = document.getElementById("breed"); //breed search input
+const bred = document.getElementById("bred"); //bred/custom dropdown
+const sex = document.getElementById("sex"); //sex dropdown
+const patternSelect = document.getElementById("pattern"); //pattern dropdown
+const colorSelect = document.getElementById("color"); //color dropdown
+const breedtype = document.getElementById("breedtype"); //purebred/mixed dropdown
+const breedtypeSection = document.getElementById("breedtypeSection"); //divider/wrapper to show/hide the breedtype section
+const xp = document.getElementById("xp"); //XP number input
+const maxStats = document.getElementById("maxStats"); //max stats yes/no dropdown
+const rp = document.getElementById("rp"); //RP enabled yes/no dropdown
+const rpSection = document.getElementById("rpSection"); //divider/wrapper to show/hide the RP section
+const result = document.getElementById("result"); //output box for the breakdown
+const copyBtn = document.getElementById("copyBtn"); //copy breakdown button
+
+ //RP only fields 
 const age = document.getElementById("age");
 const lineage = document.getElementById("lineage");
 const exp = document.getElementById("exp");
@@ -234,6 +237,7 @@ const health = document.getElementById("health");
 const papers = document.getElementById("papers");
   
 // BASE PRICES
+  //fixed starting price value per breed as a foundation
 const breeds = {
 "Akhal Teke": 8100,
 "American Appendix Horse": 8500,
@@ -322,6 +326,7 @@ const breeds = {
 };
 
 // PATTERNS
+  // percentage bonus added depending on pattern
 const patterns = {
 "Solid":0.30,
 "Leopard":0.25,
@@ -341,10 +346,11 @@ const patterns = {
 };
 
 // COLORS
-const colorMap = {
-"Chestnut":0.10,
-"Black":0.10,
-"Bay":0.10,
+    // percentage bonus added depending on color
+const color = {
+"Chestnut":0.11,
+"Black":0.11,
+"Bay":0.11,
 "Flaxen Chestnut":0.12,
 "Pangare Chestnut":0.12,
 "Pangare Bay":0.12,
@@ -371,34 +377,34 @@ const colorMap = {
 "Silver Buckskin":0.18
 };
 
-window.onload = () => {
+window.onload = () => { //the following fuction that run at the end of loading the page
 
- const breedList = document.getElementById("breedList");
+ const breedList = document.getElementById("breedList"); //data list for breed search
 
-  const patternSelect = document.getElementById("pattern");
-  const colorSelect = document.getElementById("color");
+  const patternSelect = document.getElementById("pattern"); //pattern drop down selection
+  const colorSelect = document.getElementById("color"); //color drop down selection
 
-  let sorted = Object.keys(breeds).sort();
+  let sorted = Object.keys(breeds).sort(); // have breeds sorted alphabetically
 
-  for (let b of sorted) {
-    breedList.innerHTML += `<option value="${b}">`;
+  for (let b of sorted) { //"loop through" (analyze) each breed key."b" variable for "breed"
+    breedList.innerHTML += `<option value="${b}">`; //make each breed a dropdown option
   }
 
-  for (let p in patterns) {
-    patternSelect.innerHTML += `<option value="${p}">${p}</option>`;
+  for (let p in patterns) { //"loop through" each pattern key
+    patternSelect.innerHTML += `<option value="${p}">${p}</option>`; //make each pattern a dropdown option
   }
 
-  for (let c in colorMap) {
-    colorSelect.innerHTML += `<option value="${c}">${c}</option>`;
+  for (let c in color) { //"loop through" each color key
+    colorSelect.innerHTML += `<option value="${c}">${c}</option>`; //make each color a dropdown option
   }
 
-toggleBreedType();
+toggleBreedType(); //set the correct default visibility of the breedtype on load 
 };
 
-function toggleRP(){
-  rpSection.style.display = rp.value == "1" ? "block" : "none";
+function toggleRP(){ //show/hide RP section , reset RP fields if disabled
+  rpSection.style.display = rp.value == "1" ? "block" : "none"; // toggle visibility
 
-  if (rp.value == "0") {
+  if (rp.value == "0") { // if RP is set to no the following variables wont have multipliers/ wont count in
 
     age.value = "1";
     lineage.value = "1";
@@ -409,41 +415,39 @@ function toggleRP(){
   }
 }
 
-function toggleBreedType() {
-  if (bred.value === "custom") {
+function toggleBreedType() { //show/hide purebred/mixed dropdown 
+  if (bred.value === "custom") { //hide breedtype when select "custom"
     breedtypeSection.style.display = "none";
   } else {
     breedtypeSection.style.display = "block";
   }
 }
 
-let lastBreakdown = "";
+let lastBreakdown = ""; //store last generated breakdown text for the copy button, at the beginning empty
+let hasCalculated = false; //track if calculate button has already been pressed
 
-function calculate(){
+// MAIN CALCULATION
+function calculate(){ //main calculation fuction
 
-let breedName = breed.value.trim();
-let base = breeds[breedName];
+hasCalculated = true; //enabled that if he calculation has happened (via button) live updates start
 
-console.log("Base:", base);
-console.log("Breed:", breedName);
-console.log("Pattern:", patternSelect.value);
-console.log("Pattern Bonus:", patterns[patternSelect.value] ?? 0);
-console.log("Color Bonus:", colorMap[colorSelect.value] ?? 0);
+let breedName = breed.value.trim(); //checks teh entered breed name and corrects it (removing extra spaces)
+let base = breeds[breedName]; //checks base price and adds
 
-let appearanceAdd = 0;
+let appearanceAdd = 0; //starting total for apperance category
 let performanceAdd = 0;
 let conditionAdd = 0;
 let otherAdd = 0;
 
-let total = base *
-parseFloat(sex.value) *
-(1 + (patterns[pattern.value] ?? 0)) *
-(1 + (colorMap[colorSelect.value] ?? 0)) *
-parseFloat(breedtype.value);
+let total = base * //start with the base price
+parseFloat(sex.value) * //multiply by sex modifyer
+(1 + (patterns[patternSelect.value] ?? 0)) * // add pattern bonus
+(1 + (color[colorSelect.value] ?? 0)) *// add color bonus
+parseFloat(breedtype.value); // multiply by purebred/mixed multiplier
 
-let rpMult = 1;
+let rpMult = 1; // RP multiplier is neutral by default 
 
-if(rp.value == "1"){
+if(rp.value == "1"){ //only apply RP factors if RP is enabled
 rpMult =
 parseFloat(age.value) *
 parseFloat(lineage.value) *
@@ -453,74 +457,70 @@ parseFloat(health.value) *
 parseFloat(papers.value);
 }
 
-total *= rpMult;
+total *= rpMult; // apply RP multipliers to total
 
+//CATEGORIES
 // APPEARANCE
-appearanceAdd =
-base * (colorMap[colorSelect.value] ?? 0) +
-base * (patterns[pattern.value] ?? 0);
+appearanceAdd = //Value added by color+pattern
+base * (color[colorSelect.value] ?? 0) +
+base * (patterns[patternSelect.value] ?? 0);
 
 // CONDITION (always applies)
-conditionAdd =
+conditionAdd = //Value added/removed by sex + breedtype
 base * (parseFloat(sex.value)-1) +
 base * (parseFloat(breedtype.value)-1);
 
 // BREEDING FEE
 let breedingBonus = 0;
-
-if (bred.value == "bred") {
-    breedingBonus = 1500;
-    total += breedingBonus;
+if (bred.value == "bred") { //add money fee when horse is bred
+    breedingBonus = 1500; // amount of fee
+    total += breedingBonus; //add breeding fee to total
 }
-  
+//PERFORMANCE ALWAYS
 let maxStatsBonus = 0;
-if (maxStats.value === "0.15") {
-  maxStatsBonus = base * 0.15;
+if (maxStats.value === "0.15") { //add bonus if max stats is selected
+  maxStatsBonus = base * 0.15; //amount of bonus (15%)
   total += maxStatsBonus;
-  performanceAdd += maxStatsBonus;
+  performanceAdd += maxStatsBonus; // add to performance section in breakdown
 }
 
-if (rp.value == "1") {
-  // PERFORMANCE
-performanceAdd +=
+if (rp.value == "1") { //RP only breakdown additions
+
+  // PERFORMANCE RP
+performanceAdd += //Value added from experience and competition
 base * (parseFloat(exp.value)-1) +
 base * (parseFloat(comp.value)-1);
 
 // CONDITION (RP only)
-conditionAdd +=
+conditionAdd += //Value added from age+health
 base * (parseFloat(age.value)-1) +
 base * (parseFloat(health.value)-1);
 
   // OTHER
-  otherAdd =
-  breedingBonus +
+  otherAdd = //Value added from lineage and papers
   base * (parseFloat(lineage.value)-1) +
   base * (parseFloat(papers.value)-1);
 
 } else {
-  otherAdd = 0;
+  otherAdd = 0; //Other cat is 0 if RP is toggled off, its also removed frm breakdown 
 }
 
 // XP
-let xpVal = parseInt(xp.value) || 0;
-
-if (xpVal > 10000) {
+let xpVal = parseInt(xp.value) || 0; //read XP as number
+if (xpVal > 10000) { //clamps to max, cant go above 10k
   xpVal = 10000;
 }
-
-if (xpVal < 0) {
+if (xpVal < 0) { //clamps to min, cant go below 0
   xpVal = 0;
 }
+xp.value = xpVal; // if number outside of min/max write clamped min/max back in the field
 
-xp.value = xpVal;
-
-let xpFactor = xpVal === 10000 ? 0.35 : 0.25;
-let xpBonus = xpVal * xpFactor;
-
-total += xpBonus;
+let xpFactor = xpVal === 10000 ? 0.35 : 0.25; //higher bonus if max xp instead of the normal multiplier
+let xpBonus = xpVal * xpFactor; //dollar bonus from xp from multipliying
+total += xpBonus; //add xp bonus to total
 
 // Bonding Bonus
-let bondingBonus = 0;
+let bondingBonus = 0; //bonding bonus based on XP treshholds
 
 if (xpVal >= 8000) {
   bondingBonus = 0.09;
@@ -529,14 +529,23 @@ if (xpVal >= 8000) {
 } else if (xpVal >= 4000) {
   bondingBonus = 0.03;
 }
-
-performanceAdd += base * bondingBonus;
-total += base * bondingBonus;
+performanceAdd += base * bondingBonus; //add bonding bonus to performance breakdown
+total += base * bondingBonus; //add bonding bonus to total
 
 // Round up to the next 500
-let roundedPrice = Math.ceil(total / 500) * 500;
+let roundedPrice = Math.ceil(total / 500) * 500; //round up the price to 500's
 
-lastBreakdown =
+// F12 Debug output — quick overview of the final category totals
+console.log("Base Price:", Math.round(base));
+console.log("Appearance:", Math.round(appearanceAdd));
+console.log("Performance:", Math.round(performanceAdd));
+console.log("Condition:", Math.round(conditionAdd));
+console.log("XP Bonus:", Math.round(xpBonus));
+console.log("Other:", Math.round(otherAdd));
+console.log("Final Price:", Math.round(total));
+
+//LAST BREAKDOWN
+lastBreakdown = //build the multi line breakdown text shown to user
 `BASE PRICE: $${Math.round(base)}
 
 ${bred.value === "bred" ? `BREEDING FEE: +$${breedingBonus}\n` : ""}
@@ -549,7 +558,7 @@ CONDITION: ${conditionAdd >= 0 ? "+" : "-"}$${Math.round(Math.abs(conditionAdd))
 
 XP: +$${Math.round(xpBonus)}
 
-OTHER: ${otherAdd >= 0 ? "+" : "-"}$${Math.round(Math.abs(otherAdd))}
+${rp.value === "1" ? `OTHER: ${otherAdd >= 0 ? "+" : "-"}$${Math.round(Math.abs(otherAdd))}\n` : ""}
 
 ────────────────────
 
@@ -557,38 +566,51 @@ FINAL PRICE: $${Math.round(total)}
 
 RECOMMENDED LISTING PRICE: $${roundedPrice}`;
 
-result.innerText = lastBreakdown;
-copyBtn.style.display = "block";
+result.innerText = lastBreakdown; //display breakdown to user
+copyBtn.style.display = "block"; //reveal the copy button 
 }
 
   // FUNCTIONS AND EVENT LISTENERS
 
     function copyText(){
-      navigator.clipboard.writeText(lastBreakdown);
-      alert("Copied breakdown!");
+      navigator.clipboard.writeText(lastBreakdown);  // copy breakdown text to clipboard
+      alert("Copied breakdown!");  // show confirmation popup
     }
 
-    xp.addEventListener("input", () => {
-      let val = parseInt(xp.value);
-      if (isNaN(val)) val = 0;
-      if (val > 10000) xp.value = 10000;
-      if (val < 0) xp.value = 0;
+    xp.addEventListener("input", () => { // runs on every keystroke in XP field
+      let val = parseInt(xp.value); //analyze xp input and convert to number for function
+      if (isNaN(val)) val = 0; // NaN if not a valid number
+      if (val > 10000) xp.value = 10000; //cant go above 10k -> enforce limit
+      if (val < 0) xp.value = 0; // cant go below 0 -> enforce min limit
     });
 
-    rp.addEventListener("change", () => {
-      toggleRP();
-      if (lastBreakdown !== "") calculate();
+    rp.addEventListener("change", () => { //run this function when rp dropdown changes
+      toggleRP(); // action-> show/hide rp section depending on dropdown selection
+      if (hasCalculated) calculate(); // if calculate button has been pressed alreday, change the calculation live if changes are taken
     });
 
-    bred.addEventListener("change", () => {
-      toggleBreedType();
-      if (lastBreakdown !== "") calculate();
+    bred.addEventListener("change", () => { //run this function when Bred/Custom dropdown changes
+      toggleBreedType(); // action-> show/hide purebred/mixed section depending on dropdown selection
+      if (hasCalculated) calculate();  // if calculate button has been pressed alreday, change the calculation live if changes are taken
     });
 
-    toggleBreedType();
+    const autoUpdateFields = [ // all elements being updated in the calculation automatically without pressing calculate again
+      breed, sex, patternSelect, colorSelect, breedtype,
+      xp, maxStats,
+      age, lineage, exp, comp, health, papers
+    ];
 
-  </script>
-<!-- JAVA SCRIPT END -->
+    autoUpdateFields.forEach((field) => { //"loop through"
+      field.addEventListener("input", () => { // automatically changes calculation if an input has been changed
+        if (hasCalculated) calculate();
+      });
+      field.addEventListener("change", () => { // automatically changes calculation if a dropdown menu has been changed
+        if (hasCalculated) calculate();
+      });
+    });
+
+  </script> <!-- JAVA SCRIPT END -->
+
 
 </body>
 
