@@ -97,17 +97,18 @@ button {
 <input list="breedList" id="breed" placeholder="Search breed...">
 <datalist id="breedList"></datalist>
 
-<label>Bred / Custom</label>
+<label>Bred / Custom / Caught</label>
 <select id="bred">
   <option value="bred">Bred</option>
   <option value="custom">Custom</option>
+  <option value="caught">Caught</option>
 </select>
 
 <div id="breedtypeSection">
 <label>Purebred / Mixed</label>
 <select id="breedtype">
-<option value="1.2">Purebred</option>
-<option value="0.9">Mixed</option>
+  <option value="1.2">Purebred</option>
+  <option value="0.9">Mixed</option>
 </select>
 </div>
 
@@ -246,12 +247,12 @@ const breeds = {
 "American Standardbred": 6300,
 "American Miniature Horse": 7000,
 "American Paint Horse": 6300,
-"Andalusian": 7200,
 "Anglo-Arabian": 7200,
 "Appaloosa": 6300,
 "AraAppaloosa": 8100,
 "Arabian": 8100,
 "Ardennes": 6300,
+"Azteca Horse": 7200,
 "Barock Pinto": 7200,
 "Belgian Draft": 6300,
 "Black Forest": 6400,
@@ -265,12 +266,14 @@ const breeds = {
 "Connemara": 5400,
 "Criollo": 6750,
 "Donkey": 4500,
+"Draft Mule": 5400,
 "Dutch Warmblood": 6750,
 "Egyptian Arabian": 7200,
 "Emberian": 9000,
 "Exmoor": 5400,
 "Fjord": 6750,
 "Foundation American Quarter Horse": 7200,
+"Frederiksborger": 7650,
 "Friesian": 7200,
 "German Riding Pony": 6300,
 "Haflinger": 5400,
@@ -280,18 +283,17 @@ const breeds = {
 "Icelandic": 6300,
 "Irish Cob": 6300,
 "Kentucky Saddler": 6300,
+"Kinsky Horse": 7200,
 "Kladruber": 7200,
 "Knabstrupper": 6300,
 "Lewitzer": 5500,
-"Lipizzaner": 7650,
-"Lusitano Baroque": 7200,
-"Lusitano Sport": 7200,
+"Puro Sangue Lusitano": 7200,
 "Mammoth Jackstock": 5400,
 "Mangy": 4500,
 "Menorquin": 7650,
 "Merens": 7650,
 "Missouri Fox Trotter": 8100,
-"Modern American Quarter Horse": 7200,
+"Performance American Quarter Horse": 7200,
 "Morgan": 6300,
 "Mule": 4500,
 "Murgese": 7200,
@@ -302,10 +304,9 @@ const breeds = {
 "Noriker": 4950,
 "Oldenburger": 7200,
 "Paso Fino": 7200,
-"Percheron Draft Mule": 5400,
+"Percheron": 5400,
 "Pintabian": 8100,
-"PRE Modern": 7200,
-"PRE Traditional": 7200,
+"Pura Raza Espanola": 7200,
 "Przewalski": 7200,
 "Rocky Mountain Horse": 7200,
 "Selle Francais": 7200,
@@ -476,6 +477,15 @@ if (bred.value == "bred") { //add money fee when horse is bred
     breedingBonus = 1500; // amount of fee
     total += breedingBonus; //add breeding fee to total
 }
+
+// WILD HORSE BONUS
+  let caughtBonus = 0;
+if (bred.value == "caught") { //add bonus for catching a wild horse
+    caughtBonus = 500; // amount of bonus
+    total += caughtBonus; //add caught bonus to total
+    otherAdd += caughtBonus; //show it in the OTHER category in breakdown
+}
+
 //PERFORMANCE ALWAYS
 let maxStatsBonus = 0;
 if (maxStats.value === "0.15") { //add bonus if max stats is selected
