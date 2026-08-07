@@ -417,7 +417,7 @@ function toggleRP(){ //show/hide RP section , reset RP fields if disabled
 }
 
 function toggleBreedType() { //show/hide purebred/mixed dropdown 
-  if (bred.value === "custom") { //hide breedtype when select "custom"
+  if (bred.value === "custom" || bred.value === "caught") { //hide breedtype when select "custom" or "caught"
     breedtypeSection.style.display = "none";
   } else {
     breedtypeSection.style.display = "block";
