@@ -592,7 +592,13 @@ RECOMMENDED LISTING PRICE: $${roundedPrice}
 
 ${isStallion ? `STUD PRICE: $${Math.round(studPrice)}` : ""}`;
 
-result.innerText = lastBreakdown; //display breakdown to user
+// build a formatted version for the screen: highlight the recommended price line, shrink the rest
+let displayText = lastBreakdown.replace(
+  `RECOMMENDED LISTING PRICE: $${roundedPrice}`,
+  `<span class="recommended-line">RECOMMENDED LISTING PRICE: $${roundedPrice}</span>`
+);
+
+result.innerHTML = `<span class="breakdown-lines">${displayText}</span>`; //display formatted breakdown to user
 copyBtn.style.display = "block"; //reveal the copy button 
 }
 
