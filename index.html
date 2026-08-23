@@ -545,6 +545,10 @@ total += base * bondingBonus; //add bonding bonus to total
 // Round up to the next 500
 let roundedPrice = Math.ceil(total / 500) * 500; //round up the price to 500's
 
+// STUD PRICE (only relevant if Stallion is selected)
+let isStallion = sex.options[sex.selectedIndex].text === "Stallion"; //check if stallion
+let studPrice = isStallion ? total * 0.10 : 0; //10% of the calculated total price
+
 // F12 Debug output — quick overview of the final category totals
 console.log("Base Price:", Math.round(base));
 console.log("Appearance:", Math.round(appearanceAdd));
@@ -575,6 +579,8 @@ ${rp.value === "1" ? `OTHER: ${otherAdd >= 0 ? "+" : "-"}$${Math.round(Math.abs(
 FINAL PRICE: $${Math.round(total)}
 
 RECOMMENDED LISTING PRICE: $${roundedPrice}`;
+
+${isStallion ? `STUD PRICE: $${Math.round(studPrice)}` : ""}`;
 
 result.innerText = lastBreakdown; //display breakdown to user
 copyBtn.style.display = "block"; //reveal the copy button 
