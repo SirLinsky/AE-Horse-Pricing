@@ -557,7 +557,8 @@ let roundedPrice = Math.ceil(total / 500) * 500; //round up the price to 500's
 
 // STUD PRICE (only relevant if Stallion is selected)
 let isStallion = sex.options[sex.selectedIndex].text === "Stallion"; //check if stallion
-let studPrice = isStallion ? total * 0.10 : 0; //10% of the calculated total price
+let studPriceRaw = isStallion ? roundedPrice * 0.10 : 0; //10% of the ALREADY ROUNDED sales price
+let studPrice = Math.ceil(studPriceRaw / 50) * 50; //round the stud price up to the next 50
 
 // F12 Debug output — quick overview of the final category totals
 console.log("Base Price:", Math.round(base));
