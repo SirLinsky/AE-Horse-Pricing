@@ -574,32 +574,31 @@ console.log("Final Price:", Math.round(total));
 
 //LAST BREAKDOWN
 lastBreakdown = //build the multi line breakdown text shown to user
-`BASE PRICE: $${Math.round(base)}
+`BASE PRICE: $${formatMoney(base)}
 
-${bred.value === "bred" ? `BREEDING FEE: +$${breedingBonus}\n` : ""}
+${bred.value === "bred" ? `BREEDING FEE: +$${formatMoney(breedingBonus)}\n` : ""}
 
-APPEARANCE: ${appearanceAdd >= 0 ? "+" : "-"}$${Math.round(Math.abs(appearanceAdd))}
+APPEARANCE: ${appearanceAdd >= 0 ? "+" : "-"}$${formatMoney(Math.abs(appearanceAdd))}
 
-PERFORMANCE: ${performanceAdd >= 0 ? "+" : "-"}$${Math.round(Math.abs(performanceAdd))}
+PERFORMANCE: ${performanceAdd >= 0 ? "+" : "-"}$${formatMoney(Math.abs(performanceAdd))}
 
-CONDITION: ${conditionAdd >= 0 ? "+" : "-"}$${Math.round(Math.abs(conditionAdd))}
+CONDITION: ${conditionAdd >= 0 ? "+" : "-"}$${formatMoney(Math.abs(conditionAdd))}
 
-XP: +$${Math.round(xpBonus)}
+XP: +$${formatMoney(xpBonus)}
 
-${rp.value === "1" ? `OTHER: ${otherAdd >= 0 ? "+" : "-"}$${Math.round(Math.abs(otherAdd))}\n` : ""}
-
+${rp.value === "1" ? `\n\nOTHER: ${otherAdd >= 0 ? "+" : "-"}$${formatMoney(Math.abs(otherAdd))}` : ""}
 ────────────────────
 
-FINAL PRICE: $${Math.round(total)}
+FINAL PRICE: $${formatMoney(total)}
 
-RECOMMENDED LISTING PRICE: $${roundedPrice}
+RECOMMENDED LISTING PRICE: $${formatMoney(roundedPrice)}
 
-${isStallion ? `STUD PRICE: $${Math.round(studPrice)}` : ""}`;
+${isStallion ? `STUD PRICE: $${formatMoney(studPrice)}` : ""}`;
 
 // build a formatted version for the screen: highlight the recommended price line, shrink the rest
 let displayText = lastBreakdown.replace(
-  `RECOMMENDED LISTING PRICE: $${roundedPrice}`,
-  `<span class="recommended-line">RECOMMENDED LISTING PRICE: $${roundedPrice}</span>`
+  `RECOMMENDED LISTING PRICE: $${formatMoney(roundedPrice)}`,
+  `<span class="recommended-line">RECOMMENDED LISTING PRICE: $${formatMoney(roundedPrice)}</span>`
 );
 
 result.innerHTML = `<span class="breakdown-lines">${displayText}</span>`; //display formatted breakdown to user
