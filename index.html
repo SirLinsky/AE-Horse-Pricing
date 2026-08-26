@@ -436,6 +436,9 @@ function toggleBreedType() { //show/hide purebred/mixed dropdown
 
 let lastBreakdown = ""; //store last generated breakdown text for the copy button, at the beginning empty
 let hasCalculated = false; //track if calculate button has already been pressed
+  function formatMoney(value) { //rounds a number and adds thousand separators (e.g. 14000 -> "14.000")
+  return Math.round(value).toLocaleString("de-DE"); //return: round the number to a whole number (still a number, can still do math with it), toLocate: convert that number into German-formatted text (now text, not a number anymore)
+}
 
 // MAIN CALCULATION
 function calculate(){ //main calculation fuction
